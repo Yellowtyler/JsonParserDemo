@@ -1,10 +1,8 @@
 package com.vtb.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @JsonPropertyOrder({"id", "name", "students", "tasks"})
@@ -16,10 +14,10 @@ public class Team {
     private String name;
 
     @JsonProperty("students")
-    private List<Student> students = new ArrayList<>();
+    private List<Student> students;
 
     @JsonProperty("tasks")
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks;
 
     public Team(Long id, String name) {
         this.id = id;
@@ -33,15 +31,14 @@ public class Team {
         this.tasks = tasks;
     }
 
-    public void addStudent(Student student){
+    public void addStudent(Student student) {
         students.add(student);
     }
 
-    public void addTask(Task task){
+    public void addTask(Task task) {
         tasks.add(task);
     }
 
-    @JsonGetter("id")
     public Long getId() {
         return id;
     }
@@ -50,7 +47,6 @@ public class Team {
         this.id = id;
     }
 
-    @JsonGetter("name")
     public String getName() {
         return name;
     }
@@ -59,7 +55,6 @@ public class Team {
         this.name = name;
     }
 
-    @JsonGetter("students")
     public List<Student> getStudents() {
         return students;
     }
@@ -68,7 +63,6 @@ public class Team {
         this.students = students;
     }
 
-    @JsonGetter("tasks")
     public List<Task> getTasks() {
         return tasks;
     }
