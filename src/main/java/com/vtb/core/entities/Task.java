@@ -1,24 +1,37 @@
 package com.vtb.core.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.List;
 
+@JsonPropertyOrder({"id", "name", "status", "labels", "description"})
 public class Task {
+    @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("name")
     private String name;
 
+    @JsonProperty("description")
     private String description;
 
+    @JsonProperty("status")
     private Status status;
 
-    private List<Label> label;
+    @JsonProperty("labels")
+    private List<Label> labels;
 
-    public Task(Long id, String name, String description, Status status, List<Label> label) {
+    public Task(Long id, String name, String description, Status status, List<Label> labels) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.status = status;
-        this.label = label;
+        this.labels = labels;
+    }
+
+    public Task() {
+
     }
 
     public Long getId() {
@@ -53,11 +66,11 @@ public class Task {
         this.status = status;
     }
 
-    public List<Label> getLabel() {
-        return label;
+    public List<Label> getLabels() {
+        return labels;
     }
 
-    public void setLabel(List<Label> label) {
-        this.label = label;
+    public void setLabels(List<Label> labels) {
+        this.labels = labels;
     }
 }
