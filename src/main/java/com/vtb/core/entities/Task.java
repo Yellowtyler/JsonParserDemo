@@ -1,5 +1,7 @@
 package com.vtb.core.entities;
 
+import java.util.List;
+
 public class Task {
     private Long id;
 
@@ -9,9 +11,9 @@ public class Task {
 
     private Status status;
 
-    private Label label;
+    private List<Label> label;
 
-    public Task(Long id, String name, String description, Status status, Label label) {
+    public Task(Long id, String name, String description, Status status, List<Label> label) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -51,11 +53,11 @@ public class Task {
         this.status = status;
     }
 
-    public Label getLabel() {
+    public List<Label> getLabel() {
         return label;
     }
 
-    public void setLabel(Label label) {
+    public void setLabel(List<Label> label) {
         this.label = label;
     }
 }
