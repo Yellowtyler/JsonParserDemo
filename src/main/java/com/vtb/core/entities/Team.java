@@ -21,6 +21,7 @@ public class Team {
     @JsonProperty("tasks")
     private List<Task> tasks = new ArrayList<>();
 
+    public Team() {}
     public Team(Long id, String name) {
         this.id = id;
         this.name = name;
