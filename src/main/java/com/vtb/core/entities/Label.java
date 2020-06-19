@@ -1,10 +1,21 @@
 package com.vtb.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Label {
-    VER_CONTROL,
-    VIRTUALIZATION,
-    JAVA_PROGRAMMING
+    VER_CONTROL("ver_control"),
+    VIRTUALIZATION("virtualization"),
+    JAVA_PROGRAMMING("java_programming");
+
+    private String name;
+
+    Label(String name) {
+        this.name = name;
+    }
+
+    @JsonValue
+    public String getName() {
+        return name;
+    }
+
 }
