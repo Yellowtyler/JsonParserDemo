@@ -17,15 +17,16 @@ public class Student {
     @JsonProperty("tasks")
     private ArrayList<Task> subTasks;
 
+    public Student(){}
+
     @JsonCreator
     public Student( @JsonProperty("id") Long id, @JsonProperty("firstName") String firstName,
-                    @JsonProperty("secondName") String secondName, String password,
+                    @JsonProperty("secondName") String secondName,
                     @JsonProperty("phone") String phone, @JsonProperty("email")String email,
                     @JsonProperty("tasks") ArrayList<Task> tasks) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
-        this.password = password;
         this.phone = phone;
         this.email = email;
         this.subTasks = tasks;

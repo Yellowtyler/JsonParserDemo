@@ -17,7 +17,7 @@ public class Converter {
         objectMapper.writeValue(new File(fileName), teams);
     }
 
-    public static List<Team> toJavaObject(String fileName, ArrayList<Team> teams) throws IOException {
+    public static List<Team> toJavaObject(String fileName) throws IOException {
         Team[] readValue =  new ObjectMapper().readValue(new File(fileName), Team[].class);
         return Arrays.asList(readValue);
     }
