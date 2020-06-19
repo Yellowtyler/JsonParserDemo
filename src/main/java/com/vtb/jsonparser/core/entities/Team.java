@@ -1,11 +1,15 @@
-package com.vtb.core.entities;
+package com.vtb.jsonparser.core.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.List;
 
 @JsonPropertyOrder({"id", "name", "students", "tasks"})
+@EqualsAndHashCode
+@ToString
 public class Team {
     @JsonProperty("id")
     private Long id;

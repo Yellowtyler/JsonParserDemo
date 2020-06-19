@@ -1,10 +1,15 @@
-package com.vtb.core.entities;
+package com.vtb.jsonparser.core.entities;
 
 import com.fasterxml.jackson.annotation.*;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @JsonPropertyOrder({"id", "firstName", "secondName", "phone", "email", "tasks"})
+@EqualsAndHashCode
+@ToString
 public class Student {
 
     private Long id;
@@ -15,7 +20,7 @@ public class Student {
     private String phone;
     private String email;
     @JsonProperty("tasks")
-    private ArrayList<Task> subTasks;
+    private List<Task> subTasks;
 
     public Student(){}
 
@@ -23,7 +28,7 @@ public class Student {
     public Student( @JsonProperty("id") Long id, @JsonProperty("firstName") String firstName,
                     @JsonProperty("secondName") String secondName,
                     @JsonProperty("phone") String phone, @JsonProperty("email")String email,
-                    @JsonProperty("tasks") ArrayList<Task> tasks) {
+                    @JsonProperty("tasks") List<Task> tasks) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -91,7 +96,7 @@ public class Student {
     }
 
     @JsonGetter("tasks")
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return subTasks;
     }
 
