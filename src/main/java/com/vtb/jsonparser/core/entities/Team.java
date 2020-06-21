@@ -2,7 +2,9 @@ package com.vtb.jsonparser.core.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.List;
@@ -10,17 +12,22 @@ import java.util.List;
 @JsonPropertyOrder({"id", "name", "students", "tasks"})
 @EqualsAndHashCode
 @ToString
+@Data
 public class Team {
     @JsonProperty("id")
+    @NonNull
     private Long id;
 
     @JsonProperty("name")
+    @NonNull
     private String name;
 
     @JsonProperty("students")
+    @NonNull
     private List<Student> students;
 
     @JsonProperty("tasks")
+    @NonNull
     private List<Task> tasks;
 
     public Team() {}
@@ -37,42 +44,14 @@ public class Team {
     }
 
     public void addStudent(Student student) {
-        students.add(student);
+        if (student != null) {
+            students.add(student);
+        }
     }
 
     public void addTask(Task task) {
-        tasks.add(task);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+        if (task != null) {
+            tasks.add(task);
+        }
     }
 }
