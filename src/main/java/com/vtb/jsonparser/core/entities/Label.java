@@ -1,4 +1,4 @@
-package com.vtb.core.entities;
+package com.vtb.jsonparser.core.entities;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

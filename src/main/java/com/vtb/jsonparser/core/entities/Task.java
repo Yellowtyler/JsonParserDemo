@@ -1,25 +1,37 @@
-package com.vtb.core.entities;
+package com.vtb.jsonparser.core.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.ToString;
 
 import java.util.List;
 
 @JsonPropertyOrder({"id", "name", "status", "labels", "description"})
+@EqualsAndHashCode
+@ToString
+@Data
 public class Task {
     @JsonProperty("id")
+    @NonNull
     private Long id;
 
     @JsonProperty("name")
+    @NonNull
     private String name;
 
     @JsonProperty("description")
+    @NonNull
     private String description;
 
     @JsonProperty("status")
+    @NonNull
     private Status status;
 
     @JsonProperty("labels")
+    @NonNull
     private List<Label> labels;
 
     public Task(Long id, String name, String description, Status status, List<Label> labels) {
@@ -32,45 +44,5 @@ public class Task {
 
     public Task() {
 
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public List<Label> getLabels() {
-        return labels;
-    }
-
-    public void setLabels(List<Label> labels) {
-        this.labels = labels;
     }
 }
