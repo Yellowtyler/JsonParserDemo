@@ -8,8 +8,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
+//@XmlType(name = "student")
+@XmlRootElement(name = "students")
 @JsonPropertyOrder({"id", "firstName", "secondName", "phone", "email", "tasks"})
 @EqualsAndHashCode
 @ToString
@@ -39,9 +45,10 @@ public class Student {
     @NonNull
     private String email;
 
+   /* @XmlElementWrapper(name = "tasks")
     @JsonProperty("tasks")
     @NonNull
-    private List<Task> subTasks;
+    private List<Task> subTasks;*/
 
     public Student() {
     }
@@ -52,6 +59,6 @@ public class Student {
         this.secondName = secondName;
         this.phone = phone;
         this.email = email;
-        this.subTasks = tasks;
+      //  this.subTasks = tasks;
     }
 }
