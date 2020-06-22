@@ -1,7 +1,7 @@
 package com.vtb.jsonparser.core;
 
 import com.vtb.jsonparser.core.entities.*;
-import com.vtb.jsonparser.core.util.Converter;
+import com.vtb.jsonparser.core.util.JsonConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ConverterTest {
+public class JsonConverterTest {
     final String FILENAME = "data.json";
     List<Team> teams = new ArrayList<>();
     String expectedResult = "[{\"id\":1,\"name\":\"team1\",\"students\":[{\"id\":1,\"firstName\":\"Ivan\",\"secondName\":\"Ivanov\",\"phone\":\"+6225525\",\"email\":\"safsf@afas.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[\"java_programming\",\"ver_control\"],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[\"java_programming\",\"ver_control\"],\"description\":\"sfasfasfafs\"}]},{\"id\":2,\"firstName\":\"Igor\",\"secondName\":\"Igorov\",\"phone\":\"+722245525\",\"email\":\"igor@mail.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[\"java_programming\",\"ver_control\"],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[\"java_programming\",\"ver_control\"],\"description\":\"sfasfasfafs\"}]}],\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[\"java_programming\",\"ver_control\"],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[\"java_programming\",\"ver_control\"],\"description\":\"sfasfasfafs\"}]}]";
@@ -41,14 +41,14 @@ public class ConverterTest {
 
     @Test
     public void ConverterToJsonTest() throws IOException {
-        Converter.toJSON(FILENAME, teams);
+        JsonConverter.toJSON(FILENAME, teams);
         String result = Files.lines(Paths.get(FILENAME)).reduce("", String::concat);
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void ConverterToJavaObject() throws IOException {
-        List<Team> newTeams = Converter.toJavaObject(FILENAME);
+        List<Team> newTeams = JsonConverter.toJavaObject(FILENAME);
         assertEquals(newTeams.get(0).toString(), teams.get(0).toString());
     }
 }
