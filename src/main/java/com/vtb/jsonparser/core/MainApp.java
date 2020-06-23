@@ -3,6 +3,7 @@ package com.vtb.jsonparser.core;
 import com.vtb.jsonparser.core.entities.Student;
 import com.vtb.jsonparser.core.entities.Task;
 import com.vtb.jsonparser.core.util.FileWorker;
+import com.vtb.jsonparser.core.util.XmlConverter;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
