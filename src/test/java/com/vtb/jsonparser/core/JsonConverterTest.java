@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -61,6 +62,7 @@ public class JsonConverterTest {
 
     @Test
     public void ConverterToJavaClassTeamsObject() throws IOException {
-        Teams newTeams =(JsonConverter.toJavaObject(FILENAME, Teams.class));
+        Teams newTeams = (JsonConverter.toJavaObject(FILENAME, Teams.class));
         assertEquals(newTeams.getTeams().get(0).getName(), teamsClass.getTeams().get(0).getName());
+    }
 }
