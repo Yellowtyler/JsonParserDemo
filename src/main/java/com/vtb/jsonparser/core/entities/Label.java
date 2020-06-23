@@ -7,10 +7,16 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "label")
+@XmlType(propOrder = {"name"})
+@XmlAccessorType(XmlAccessType.FIELD)
 @EqualsAndHashCode
 @ToString
 @Data
 public class Label {
+    @XmlElement
     @JsonProperty("name")
     @NonNull
     private String name;
