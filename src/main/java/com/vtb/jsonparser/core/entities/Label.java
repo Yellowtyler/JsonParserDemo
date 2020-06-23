@@ -1,21 +1,22 @@
 package com.vtb.jsonparser.core.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.ToString;
 
-public enum Label {
-    VER_CONTROL("ver_control"),
-    VIRTUALIZATION("virtualization"),
-    JAVA_PROGRAMMING("java_programming");
-
+@EqualsAndHashCode
+@ToString
+@Data
+public class Label {
+    @JsonProperty("name")
+    @NonNull
     private String name;
 
-    Label(String name) {
+    public Label(String name) {
         this.name = name;
     }
-
-    @JsonValue
-    public String getName() {
-        return name;
-    }
-
+    public Label() {}
 }
