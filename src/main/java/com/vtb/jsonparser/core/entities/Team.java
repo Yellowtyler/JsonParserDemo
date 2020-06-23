@@ -7,25 +7,35 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
+@XmlRootElement(name = "team")
+@XmlType(propOrder = {"id", "name", "students", "tasks"})
+@XmlAccessorType(XmlAccessType.FIELD)
 @JsonPropertyOrder({"id", "name", "students", "tasks"})
 @EqualsAndHashCode
 @ToString
 @Data
 public class Team {
+    @XmlElement
     @JsonProperty("id")
     @NonNull
     private Long id;
 
+    @XmlElement
     @JsonProperty("name")
     @NonNull
     private String name;
 
+    @XmlElementWrapper(name="students")
+    @XmlElement(name="student")
     @JsonProperty("students")
     @NonNull
     private List<Student> students;
 
+    @XmlElementWrapper(name="tasks")
+    @XmlElement(name="task")
     @JsonProperty("tasks")
     @NonNull
     private List<Task> tasks;
