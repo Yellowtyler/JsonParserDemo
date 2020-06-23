@@ -1,22 +1,34 @@
 package com.vtb.jsonparser.core.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class XmlConverter {
-    public static <T> void toXML(String fileName, T object, Class<T> c) throws JAXBException, FileNotFoundException {
-        JAXBContext context = JAXBContext.newInstance(c);
-        context.createJAXBIntrospector();
-        Marshaller m = context.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        m.marshal(object, new File(fileName));
+    private static final Logger logger = LogManager.getLogger(JsonConverter.class);
+
+    public static <T> void toXML(String fileName, T object, Class<T> c) {
+        logger.info("Сериализация в файл " + fileName);
+        try {
+            JAXBContext context = JAXBContext.newInstance(c);
+            context.createJAXBIntrospector();
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            m.marshal(object, new File(fileName));
+        } catch (JAXBException ignored){
+            logger.warn("Ошибка сериализации файла " + fileName);
+            logger.warn(ignored.getMessage());
+        }
+
     }
 
-    public static <T> T toJavaObject(String fileName, Class<T> c) throws JAXBException, FileNotFoundException {
+    public static <T> T toJavaObject(String fileName, Class<T> c) throws JAXBException{
+        logger.info("Десериализация файла " + fileName);
         JAXBContext context = JAXBContext.newInstance(c);
         Unmarshaller un = context.createUnmarshaller();
         return (T) un.unmarshal(new File(fileName));
