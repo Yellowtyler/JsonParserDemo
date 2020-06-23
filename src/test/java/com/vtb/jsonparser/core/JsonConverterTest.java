@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -42,15 +41,15 @@ public class JsonConverterTest {
     }
 
     @Test
-    public void ConverterToJsonTest() throws IOException {
+    public void FromObjectToFileTest() throws IOException {
         JsonConverter.toJSON(FILENAME, teams);
         String result = Files.lines(Paths.get(FILENAME)).reduce("", String::concat);
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void ConverterToJavaObject() throws IOException {
+    public void FromFileToObject() throws IOException {
         List<Team> newTeams = Arrays.asList(JsonConverter.toJavaObject(FILENAME, Team[].class));
-        assertEquals(newTeams.get(0).toString(), teams.get(0).toString());
+        assertEquals(teams.get(0).toString(), newTeams.get(0).toString());
     }
 }

@@ -40,7 +40,7 @@ public class MainApp {
         task.setId(1L);
         task.setName("dfsd");
         student.setTasks(List.of(task));
-        List<String> listFiles = findFiles(new String[]{"*.xml", "team.json"});
+        List<String> listFiles = findFiles(new String[]{"*.xml", "data.json"});
 
         XmlConverter.toXML("student.xml", student, Student.class);
 
