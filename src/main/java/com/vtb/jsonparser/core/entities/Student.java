@@ -19,7 +19,6 @@ import java.util.List;
 @ToString
 @Data
 public class Student {
-
     @XmlElement
     @JsonProperty("id")
     @NonNull
