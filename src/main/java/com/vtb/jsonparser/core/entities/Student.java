@@ -3,6 +3,7 @@ package com.vtb.jsonparser.core.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -14,6 +15,7 @@ import java.util.List;
 @XmlRootElement(name = "student")
 @XmlType(propOrder = {"id", "firstName", "secondName", "phone", "email", "tasks"})
 @XmlAccessorType(XmlAccessType.FIELD)
+@JsonRootName(value = "student")
 @JsonPropertyOrder({"id", "firstName", "secondName", "phone", "email", "tasks"})
 @EqualsAndHashCode
 @ToString
