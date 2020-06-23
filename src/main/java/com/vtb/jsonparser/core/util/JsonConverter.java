@@ -12,11 +12,12 @@ public class JsonConverter {
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
-    public static <T> void toJSON(String fileName, T object, Class<T> c) throws IOException {
-        objectMapper.writeValue(new File(fileName), object);
+    public static void toJSON(String fileName, List<Team> teams) throws IOException {
+        objectMapper.writeValue(new File(fileName), teams);
     }
 
-    public static <T> T toJavaObject(String fileName, Class<T> c) throws IOException {
-        return (T) objectMapper.readValue(new File(fileName), c);
+    public static List<Team> toJavaObject(String fileName) throws IOException {
+        Team[] readValue =  objectMapper.readValue(new File(fileName), Team[].class);
+        return Arrays.asList(readValue);
     }
 }
