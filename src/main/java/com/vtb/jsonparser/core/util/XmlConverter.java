@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class XmlConverter {
-
-
     public static <T> void toXML(String fileName, T object, Class<T> c) throws JAXBException, FileNotFoundException {
         JAXBContext context = JAXBContext.newInstance(c);
         context.createJAXBIntrospector();

@@ -1,32 +1,10 @@
 package com.vtb.jsonparser.core;
 
-import com.vtb.jsonparser.core.entities.*;
-import com.vtb.jsonparser.core.util.XmlConverter;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
 import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.FileFilter;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainApp {
-
-    public static List<String> findFiles(String dirPath, String[] args) {
-        FileFilter fileFilter;
-        File[] files;
-        List<String> listFiles = new ArrayList<>();
-        File dir= new File(dirPath);
-        for (String arg : args) {
-            fileFilter = new WildcardFileFilter(arg);
-            files = dir.listFiles(fileFilter);
-            for (File file : files) {
-                System.out.println(file);
-                listFiles.add(file.toString());
-            }
-        }
-        return listFiles;
-    }
 
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
         Student student = new Student();
@@ -40,6 +18,13 @@ public class MainApp {
         task.setStatus(Status.IN_PROCESS);
         task.setName("dfsd");
         student.setTasks(List.of(task));
+
+        List<String> listFiles = FileWorker.findFiles("xml-json", ".", new String[]{"*.xml", "team.json", "student.xml"});
+        for(String list : listFiles)
+            System.out.println(list);
+        List<String> listFil = FileWorker.convertFiles("xml", listFiles);
+        for(String list : listFil)
+            System.out.println(list);
 
         Student student1 = new Student();
         student1.setFirstName("Leha");

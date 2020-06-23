@@ -40,17 +40,16 @@ public class JsonConverterTest {
     }
 
     @Test
-    public void ConverterToJsonListOfTeamsTest() throws IOException {
-
+    public void FromObjectToFileTest() throws IOException {
         JsonConverter.toJSON(FILENAME, teams);
         String result = Files.lines(Paths.get(FILENAME)).reduce("", String::concat);
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void ConverterToJavaListOfTeamsObject() throws IOException {
-        Team[] newTeams =(JsonConverter.toJavaObject(FILENAME, Team[].class));
-        assertEquals(newTeams[0].getName(), teams.get(0).getName());
+    public void FromFileToObject() throws IOException {
+        List<Team> newTeams = Arrays.asList(JsonConverter.toJavaObject(FILENAME, Team[].class));
+        assertEquals(teams.get(0).toString(), newTeams.get(0).toString());
     }
 
     @Test
@@ -64,5 +63,4 @@ public class JsonConverterTest {
     public void ConverterToJavaClassTeamsObject() throws IOException {
         Teams newTeams =(JsonConverter.toJavaObject(FILENAME, Teams.class));
         assertEquals(newTeams.getTeams().get(0).getName(), teamsClass.getTeams().get(0).getName());
-    }
 }
