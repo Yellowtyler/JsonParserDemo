@@ -20,10 +20,10 @@ public class FileWorker {
     }
 
     public static List<String> convertFiles(String typeConvert, List<String> files) {
-        int index ;
+        int index;
         String str;
         List<String> newFiles = new ArrayList<>();
-        for(String file : files) {
+        for (String file : files) {
             index = file.lastIndexOf(".");
             str = file.substring(0, index + 1);
             newFiles.add(str.concat(typeConvert));
