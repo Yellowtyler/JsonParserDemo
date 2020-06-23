@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonConverterTest {
     final String FILENAME = "data.json";
+    final String FILENAME2 = "data2.json";
     List<Team> teams = new ArrayList<>();
     String expectedResult = "[{\"id\":1,\"name\":\"team1\",\"students\":[{\"id\":1,\"firstName\":\"Ivan\",\"secondName\":\"Ivanov\",\"phone\":\"+6225525\",\"email\":\"safsf@afas.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]},{\"id\":2,\"firstName\":\"Igor\",\"secondName\":\"Igorov\",\"phone\":\"+722245525\",\"email\":\"igor@mail.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]}],\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]}]";
     String expectedResult1 = "{\"teams\":[{\"id\":1,\"name\":\"team1\",\"students\":[{\"id\":1,\"firstName\":\"Ivan\",\"secondName\":\"Ivanov\",\"phone\":\"+6225525\",\"email\":\"safsf@afas.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]},{\"id\":2,\"firstName\":\"Igor\",\"secondName\":\"Igorov\",\"phone\":\"+722245525\",\"email\":\"igor@mail.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]}],\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]}]}";
@@ -55,14 +56,14 @@ public class JsonConverterTest {
 
     @Test
     public void ConverterToJsonClassTeamsTest() throws IOException {
-        JsonConverter.toJSON(FILENAME, teamsClass);
-        String result = Files.lines(Paths.get(FILENAME)).reduce("", String::concat);
+        JsonConverter.toJSON(FILENAME2, teamsClass);
+        String result = Files.lines(Paths.get(FILENAME2)).reduce("", String::concat);
         assertEquals(expectedResult1, result);
     }
 
     @Test
     public void ConverterToJavaClassTeamsObject() throws IOException {
-        Teams newTeams = (JsonConverter.toJavaObject(FILENAME, Teams.class));
-        assertEquals(newTeams.getTeams().get(0).getName(), teamsClass.getTeams().get(0).getName());
+        Teams newTeams = JsonConverter.toJavaObject(FILENAME2, Teams.class);
+        assertEquals(newTeams.getTeams().get(0), teamsClass.getTeams().get(0));
     }
 }
