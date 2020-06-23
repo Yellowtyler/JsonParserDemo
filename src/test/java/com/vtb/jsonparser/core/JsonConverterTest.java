@@ -20,9 +20,9 @@ public class JsonConverterTest {
 
     @BeforeEach
     public void init() {
-        List<Label> labelList = new ArrayList<>();
-        labelList.add(new Label("Java programming"));
-        labelList.add(new Label("Version control"));
+        List<Label> labelList = List.of(
+                new Label("Java programming"),
+                new Label("Version control"));
 
         List<Task> tasks = List.of(
                 new Task(1L, "task 1", "sfafafa", Status.DONE, labelList),
