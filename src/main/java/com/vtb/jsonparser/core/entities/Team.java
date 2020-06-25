@@ -19,7 +19,7 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 @Data
-public class Team {
+public class Team implements Entity {
     @XmlElement
     @JsonProperty("id")
     @NonNull
@@ -30,19 +30,21 @@ public class Team {
     @NonNull
     private String name;
 
-    @XmlElementWrapper(name="students")
-    @XmlElement(name="student")
+    @XmlElementWrapper(name = "students")
+    @XmlElement(name = "student")
     @JsonProperty("students")
     @NonNull
     private List<Student> students;
 
-    @XmlElementWrapper(name="tasks")
-    @XmlElement(name="task")
+    @XmlElementWrapper(name = "tasks")
+    @XmlElement(name = "task")
     @JsonProperty("tasks")
     @NonNull
     private List<Task> tasks;
 
-    public Team() {}
+    public Team() {
+    }
+
     public Team(Long id, String name) {
         this.id = id;
         this.name = name;
