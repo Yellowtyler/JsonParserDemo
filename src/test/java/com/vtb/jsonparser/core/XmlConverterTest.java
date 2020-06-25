@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,13 +152,13 @@ public class XmlConverterTest {
 
     @Test
     public void fromObjectToFileTest() throws JAXBException, IOException {
-        XmlConverter.toXML(FILENAME, teams.get(0), Team.class);
+        XmlConverter.toXML(FILENAME, teams.get(0));
 //        String result = Files.lines(Paths.get(FILENAME)).reduce("", String::concat);
         StringBuilder resultReader1 = new StringBuilder();
         FileInputStream fstream = new FileInputStream(FILENAME);
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
         String strLine;
-        while ((strLine = br.readLine()) != null){
+        while ((strLine = br.readLine()) != null) {
             resultReader1.append(strLine).append("\n");
         }
 

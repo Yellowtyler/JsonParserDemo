@@ -12,10 +12,10 @@ import java.io.File;
 public class XmlConverter {
     private static final Logger logger = LogManager.getLogger(JsonConverter.class);
 
-    public static <T> void toXML(String fileName, T object, Class<T> c) {
+    public static <T> void toXML(String fileName, T object) {
         logger.info("Сериализация в файл " + fileName);
         try {
-            JAXBContext context = JAXBContext.newInstance(c);
+            JAXBContext context = JAXBContext.newInstance(object.getClass());
             context.createJAXBIntrospector();
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
