@@ -1,5 +1,6 @@
 package com.vtb.jsonparser.core.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -19,12 +20,13 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 @Data
-public class Teams {
+public class Teams implements Entity {
     @XmlElement
     @JsonProperty("teams")
     @NonNull
     private List<Team> teams;
 
+//    @JsonCreator
     public Teams(@NonNull List<Team> teams) {
         this.teams = teams;
     }
