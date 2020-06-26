@@ -172,13 +172,16 @@ public class ConverterTest {
 
         xmlConverter.serialize(fileXml.getName(), teams.get(0));
 
+        /*
+        // В будущем для проверки списка файлов
         List<String> output = new ArrayList<>();
         output.add(FILENAME_JSON);
 
         List<String> input = new ArrayList<>();
         input.add(FILENAME_XML);
 
-        converter.convertXmlJson(input, output);
+        converter.convertXmlJson(input, output);*/
+        converter.convertXmlJson(FILENAME_XML, FILENAME_JSON);
 
         String result = Files.lines(Paths.get(FILENAME_JSON)).reduce("", String::concat);
         fileJson.delete();
@@ -196,13 +199,16 @@ public class ConverterTest {
 
         jsonConverter.serialize(fileJson.getName(), teams);
 
+        /*
+        // В будущем для проверки списка файлов
         List<String> input = new ArrayList<>();
         input.add(FILENAME_JSON);
 
         List<String> output = new ArrayList<>();
         output.add(FILENAME_XML);
 
-        converter.convertJsonXml(input, output);
+        converter.convertJsonXml(input, output);*/
+        converter.convertJsonXml(FILENAME_JSON, FILENAME_XML);
 
         StringBuilder resultReader = new StringBuilder();
         FileInputStream fstream = new FileInputStream(FILENAME_XML);
