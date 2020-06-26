@@ -1,10 +1,5 @@
 package com.vtb.jsonparser.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
-import javax.xml.bind.annotation.XmlRootElement;
-
 //@XmlRootElement(name = "entity")
 //@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
 //@JsonSubTypes({
