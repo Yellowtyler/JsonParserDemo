@@ -1,28 +1,22 @@
 package com.vtb.jsonparser.core;
 
 import com.vtb.jsonparser.core.entities.*;
-import com.vtb.jsonparser.core.util.Converter;
-import com.vtb.jsonparser.core.util.JsonConverter;
 import com.vtb.jsonparser.core.util.XmlConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ConverterTest {
-    final String FILENAME_JSON = "team.json";
-    final String FILENAME_XML = "team.xml";
-    String expectedResultJson = "{\"id\":1,\"name\":\"team1\",\"students\":[{\"id\":1,\"firstName\":\"Ivan\",\"secondName\":\"Ivanov\",\"phone\":\"+6225525\",\"email\":\"safsf@afas.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]},{\"id\":2,\"firstName\":\"Igor\",\"secondName\":\"Igorov\",\"phone\":\"+722245525\",\"email\":\"igor@mail.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]}],\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]}";
-    StringBuilder expectedResultXML = new StringBuilder();
+public class XmlConverterTest {
+    final String FILENAME = "data.xml";
     List<Team> teams = new ArrayList<>();
-
+    StringBuilder stringBuilder = new StringBuilder();
+//    String expectedResult = "";
 
     @BeforeEach
     public void init() {
@@ -43,7 +37,7 @@ public class ConverterTest {
 
         teams.add(team);
 
-        expectedResultXML.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+        stringBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                 "<team>\n" +
                 "    <id>1</id>\n" +
                 "    <name>team1</name>\n" +
@@ -157,58 +151,23 @@ public class ConverterTest {
     }
 
     @Test
-    public void fromXmltoJsonTest() throws IOException, JAXBException {
-        File fileJson = new File(FILENAME_JSON);
-        fileJson.createNewFile();
+    public void fromObjectToFileTest() throws JAXBException, IOException {
+        XmlConverter.toXML(FILENAME, teams.get(0));
+//        String result = Files.lines(Paths.get(FILENAME)).reduce("", String::concat);
+        StringBuilder resultReader1 = new StringBuilder();
+        FileInputStream fstream = new FileInputStream(FILENAME);
+        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+        String strLine;
+        while ((strLine = br.readLine()) != null) {
+            resultReader1.append(strLine).append("\n");
+        }
 
-        File fileXml = new File(FILENAME_XML);
-        fileXml.createNewFile();
-
-        XmlConverter.toXML(fileXml.getName(), teams.get(0));
-
-        List<String> output = new ArrayList<>();
-        output.add(FILENAME_JSON);
-
-        List<String> input = new ArrayList<>();
-        input.add(FILENAME_XML);
-
-        Converter.convertXmlJson(input, output);
-
-        String result = Files.lines(Paths.get(FILENAME_JSON)).reduce("", String::concat);
-        fileJson.delete();
-        fileXml.delete();
-        assertEquals(expectedResultJson, result);
+        assertEquals(stringBuilder.toString(), resultReader1.toString());
     }
 
     @Test
-    public void fromJsonToXmlTest() throws IOException {
-        File fileJson = new File(FILENAME_JSON);
-        fileJson.createNewFile();
-
-        File fileXml = new File(FILENAME_XML);
-        fileXml.createNewFile();
-
-        JsonConverter.toJSON(fileJson.getName(), teams);
-
-        List<String> input = new ArrayList<>();
-        input.add(FILENAME_JSON);
-
-        List<String> output = new ArrayList<>();
-        output.add(FILENAME_XML);
-
-        Converter.convertJsonXml(input, output);
-
-        StringBuilder resultReader = new StringBuilder();
-        FileInputStream fstream = new FileInputStream(FILENAME_XML);
-        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-        String strLine;
-        while ((strLine = br.readLine()) != null){
-            resultReader.append(strLine).append("\n");
-        }
-
-        fileJson.delete();
-        fileXml.delete();
-        assertEquals(expectedResultXML.toString(), resultReader.toString());
+    public void fromFileToObjectTest() throws JAXBException, FileNotFoundException {
+        Team newTeam = XmlConverter.toJavaObject(FILENAME, Team.class);
+        assertEquals(teams.get(0), newTeam);
     }
-
 }
