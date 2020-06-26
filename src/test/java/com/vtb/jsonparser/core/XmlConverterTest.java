@@ -16,10 +16,12 @@ public class XmlConverterTest {
     final String FILENAME = "data.xml";
     List<Team> teams = new ArrayList<>();
     StringBuilder stringBuilder = new StringBuilder();
-//    String expectedResult = "";
+    XmlConverter xmlConverter;
 
     @BeforeEach
     public void init() {
+        xmlConverter = new XmlConverter();
+
         List<Label> labelList = List.of(
                 new Label("Java programming"),
                 new Label("Version control"));
@@ -152,8 +154,7 @@ public class XmlConverterTest {
 
     @Test
     public void fromObjectToFileTest() throws JAXBException, IOException {
-        XmlConverter.toXML(FILENAME, teams.get(0));
-//        String result = Files.lines(Paths.get(FILENAME)).reduce("", String::concat);
+        xmlConverter.serialize(FILENAME, teams.get(0));
         StringBuilder resultReader1 = new StringBuilder();
         FileInputStream fstream = new FileInputStream(FILENAME);
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
@@ -167,7 +168,7 @@ public class XmlConverterTest {
 
     @Test
     public void fromFileToObjectTest() throws JAXBException, FileNotFoundException {
-        Team newTeam = XmlConverter.toJavaObject(FILENAME, Team.class);
+        Team newTeam = xmlConverter.deserialize(FILENAME, Team.class);
         assertEquals(teams.get(0), newTeam);
     }
 }

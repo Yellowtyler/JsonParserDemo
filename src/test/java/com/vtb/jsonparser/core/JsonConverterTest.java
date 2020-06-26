@@ -21,9 +21,12 @@ public class JsonConverterTest {
     String expectedResult = "[{\"id\":1,\"name\":\"team1\",\"students\":[{\"id\":1,\"firstName\":\"Ivan\",\"secondName\":\"Ivanov\",\"phone\":\"+6225525\",\"email\":\"safsf@afas.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]},{\"id\":2,\"firstName\":\"Igor\",\"secondName\":\"Igorov\",\"phone\":\"+722245525\",\"email\":\"igor@mail.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]}],\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]}]";
     String expectedResult1 = "{\"teams\":[{\"id\":1,\"name\":\"team1\",\"students\":[{\"id\":1,\"firstName\":\"Ivan\",\"secondName\":\"Ivanov\",\"phone\":\"+6225525\",\"email\":\"safsf@afas.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]},{\"id\":2,\"firstName\":\"Igor\",\"secondName\":\"Igorov\",\"phone\":\"+722245525\",\"email\":\"igor@mail.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]}],\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]}]}";
     Teams teamsClass;
+    JsonConverter jsonConverter;
 
     @BeforeEach
     public void init() {
+        jsonConverter = new JsonConverter();
+
         List<Label> labelList = List.of(
                 new Label("Java programming"),
                 new Label("Version control"));
@@ -45,27 +48,27 @@ public class JsonConverterTest {
 
     @Test
     public void FromObjectToFileTest() throws IOException {
-        JsonConverter.toJSON(FILENAME, teams);
+        jsonConverter.serialize(FILENAME, teams);
         String result = Files.lines(Paths.get(FILENAME)).reduce("", String::concat);
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void FromFileToObject() throws IOException {
-        List<Team> newTeams = Arrays.asList(JsonConverter.toJavaObject(FILENAME, Team[].class));
+        List<Team> newTeams = Arrays.asList(jsonConverter.deserialize(FILENAME, Team[].class));
         assertEquals(teams.get(0).toString(), newTeams.get(0).toString());
     }
 
     @Test
     public void ConverterToJsonClassTeamsTest() throws IOException {
-        JsonConverter.toJSON(FILENAME2, teamsClass);
+        jsonConverter.serialize(FILENAME2, teamsClass);
         String result = Files.lines(Paths.get(FILENAME2)).reduce("", String::concat);
         assertEquals(expectedResult1, result);
     }
 
     @Test
     public void ConverterToJavaClassTeamsObject() throws IOException {
-        Teams newTeams = JsonConverter.toJavaObject(FILENAME2, Teams.class);
+        Teams newTeams = jsonConverter.deserialize(FILENAME2, Teams.class);
         assertEquals(newTeams.getTeams().get(0), teamsClass.getTeams().get(0));
     }
 
@@ -73,7 +76,7 @@ public class JsonConverterTest {
     public void FromObjectToFileTest2() throws IOException {
         Entity entity = teamsClass;
 //        Entity entity = new Teams();
-        JsonConverter.toJSON(FILENAME2, entity);
+        jsonConverter.serialize(FILENAME2, entity);
         String result = Files.lines(Paths.get(FILENAME2)).reduce("", String::concat);
         assertEquals(expectedResult1, result);
     }
@@ -81,7 +84,7 @@ public class JsonConverterTest {
     @Test
     public void fromFileToObj() throws IOException {
 //            List<Team> newTeams = Arrays.asList(JsonConverter.toJavaObject(FILENAME, Team[].class));
-        Entity entity = JsonConverter.toJavaObject(FILENAME2, Teams.class);
+        Entity entity = jsonConverter.deserialize(FILENAME2, Teams.class);
         assertEquals(teamsClass, entity);
 //        assertEquals( teamsClass.getTeams().get(0), entity.newTeams.getTeams().get(0));
     }
