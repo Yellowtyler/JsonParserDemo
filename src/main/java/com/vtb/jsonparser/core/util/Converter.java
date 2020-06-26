@@ -1,19 +1,44 @@
 package com.vtb.jsonparser.core.util;
 
-import com.vtb.jsonparser.core.entities.*;
-import com.vtb.jsonparser.core.exceptions.JsonParserDemoException;
+import com.vtb.jsonparser.core.entities.Teams;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Converter {
     private static final Logger logger = LogManager.getLogger(JsonConverter.class);
 
-    private static final List<Class> classes = new ArrayList<>();
+    public void convertXmlJson(String input, String output) {
+        Object object = null;
+        JsonConverter jsonConverter = new JsonConverter();
+        XmlConverter xmlConverter = new XmlConverter();
+        try {
+            object = xmlConverter.deserialize(input, Teams.class);
+            jsonConverter.serialize(output, object);
+        } catch (JAXBException exception) {
+            logger.warn("Ошибка конвертирования");
+            logger.warn(exception.getMessage());
+        }
+
+    }
+
+    public void convertJsonXml(String input, String output) {
+        Object object = null;
+        JsonConverter jsonConverter = new JsonConverter();
+        XmlConverter xmlConverter = new XmlConverter();
+        try {
+            object = jsonConverter.deserialize(input, Teams.class);
+            xmlConverter.serialize(output, object);
+        } catch (IOException exception) {
+            logger.warn("Ошибка конвертирования");
+            logger.warn(exception.getMessage());
+        }
+    }
+
+    /*private static final List<Class> classes = new ArrayList<>();
     static {
         classes.add(Label.class);
         classes.add(Status.class);
@@ -58,5 +83,5 @@ public class Converter {
                 }
             }
         }
-    }
+    }*/
 }

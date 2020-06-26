@@ -6,7 +6,6 @@ import com.vtb.jsonparser.core.util.FileWorker;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
-import java.util.List;
 
 public class MainApp {
 
@@ -42,21 +41,24 @@ public class MainApp {
         String typeConvert = args[index];
         String filename = args[index + 1];
         FileWorker fileWorker = new FileWorker();
+        Converter converter = new Converter();
         if (typeConvert.equalsIgnoreCase("xml-json")) {
-            fileWorker.convertFile("json", filename);
+            String output = fileWorker.convertFile("json", filename);
+            converter.convertXmlJson(filename, output);
         }
         if (typeConvert.equalsIgnoreCase("json-xml")) {
-            fileWorker.convertFile("xml", filename);
+            String output = fileWorker.convertFile("xml", filename);
+            converter.convertJsonXml(filename, output);
         }
     }
 
-    public static void main(String[] args) throws JAXBException, IOException {
+    public static void main(String[] args) {
         MainApp mainApp = new MainApp();
         int index = mainApp.findIndex(args);
         try {
-            if (index >= 0 && args.length > 2) mainApp.run(index, args);
-            else System.out.println("Неверно введены параметры");
+            if (index >= 0 && args.length >= 2) mainApp.run(index, args);
         } catch (NameFileException e) {
+            System.out.println("Неверно введены параметры");
             e.printStackTrace();
         }
     }
