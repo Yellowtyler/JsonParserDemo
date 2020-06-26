@@ -32,4 +32,8 @@ public class Teams implements Entity {
     public Teams() {
 
     }
+
+    public void addTeam(Team newTeam){
+        teams.add(newTeam);
+    }
 }
