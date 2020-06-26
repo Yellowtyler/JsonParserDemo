@@ -3,6 +3,7 @@ package com.vtb.jsonparser.core;
 import com.vtb.jsonparser.core.exceptions.NameFileException;
 import com.vtb.jsonparser.core.util.Converter;
 import com.vtb.jsonparser.core.util.FileWorker;
+import com.vtb.jsonparser.core.util.XsdGenerator;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -52,7 +53,10 @@ public class MainApp {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JAXBException, IOException {
+        XsdGenerator generateXsd = new XsdGenerator();
+        generateXsd.generateXsd();
+
         MainApp mainApp = new MainApp();
         int index = mainApp.findIndex(args);
         try {
