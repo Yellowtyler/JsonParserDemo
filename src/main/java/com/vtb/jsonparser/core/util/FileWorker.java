@@ -1,5 +1,6 @@
 package com.vtb.jsonparser.core.util;
 
+import com.vtb.jsonparser.core.exceptions.NameFileException;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 import java.io.File;
@@ -19,7 +20,7 @@ public class FileWorker {
         return false;
     }
 
-    public static List<String> convertFiles(String typeConvert, List<String> files) {
+    public List<String> convertFiles(String typeConvert, List<String> files) {
         int index;
         String str;
         List<String> newFiles = new ArrayList<>();
@@ -29,6 +30,18 @@ public class FileWorker {
             newFiles.add(str.concat(typeConvert));
         }
         return newFiles;
+    }
+
+    public String convertFile(String typeConvert, String file) throws NameFileException {
+        int index;
+        String str;
+        index = file.lastIndexOf(".");
+        if (index < 0) {
+            throw new NameFileException("Файл должен иметь формат: имя_файла.xml, либо имя_файла.json");
+        }
+        str = file.substring(0, index + 1);
+        str = str.concat(typeConvert);
+        return str;
     }
 
     public static List<String> findFiles(String typeConvert, String directory, String[] arrFiles) {

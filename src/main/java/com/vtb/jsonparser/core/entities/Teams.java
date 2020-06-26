@@ -9,6 +9,7 @@ import lombok.NonNull;
 import lombok.ToString;
 
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "teams")
@@ -23,7 +24,7 @@ public class Teams implements Entity {
     @XmlElement(name = "team")
     @JsonProperty("teams")
     @NonNull
-    private List<Team> teams;
+    private List<Team> teams = new ArrayList<>();
 
     public Teams(@NonNull List<Team> teams) {
         this.teams = teams;
@@ -31,5 +32,9 @@ public class Teams implements Entity {
 
     public Teams() {
 
+    }
+
+    public void addTeam(Team newTeam){
+        teams.add(newTeam);
     }
 }
