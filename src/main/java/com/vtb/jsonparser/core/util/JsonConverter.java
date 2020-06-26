@@ -10,19 +10,19 @@ import java.io.IOException;
 public class JsonConverter {
 
     private static final Logger logger = LogManager.getLogger(JsonConverter.class);
-    private final static ObjectMapper objectMapper = new ObjectMapper();
+    private final  ObjectMapper objectMapper = new ObjectMapper();
 
-    public static <T> void toJSON(String fileName, T teams) {
+    public <T> void serialize(String fileName, T object) {
         try {
             logger.info("Сериализация в файл " + fileName);
-            objectMapper.writeValue(new File(fileName), teams);
+            objectMapper.writeValue(new File(fileName), object);
         } catch (IOException ignored){
             logger.warn("Ошибка сериализации файла " + fileName);
         }
 
     }
 
-    public static <T> T toJavaObject(String fileName, Class<T> c) throws IOException {
+    public <T> T deserialize(String fileName, Class<T> c) throws IOException {
         logger.info("Десериализация файла " + fileName);
         return (T) objectMapper.readValue(new File(fileName), c);
     }
