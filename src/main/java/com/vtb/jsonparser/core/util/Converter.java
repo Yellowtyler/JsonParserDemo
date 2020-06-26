@@ -44,7 +44,7 @@ public class Converter {
             for(Class cl : classes) {
                 try {
                     object = JsonConverter.toJavaObject(input.get(i), cl);
-                    XmlConverter.toXML(output.get(i), object, cl);
+                    XmlConverter.toXML(output.get(i), object);
                     break;
                 }
                 catch (Exception ignored) {

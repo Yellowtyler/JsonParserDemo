@@ -164,7 +164,7 @@ public class ConverterTest {
         File fileXml = new File(FILENAME_XML);
         fileXml.createNewFile();
 
-        XmlConverter.toXML(fileXml.getName(), teams.get(0), Team.class);
+        XmlConverter.toXML(fileXml.getName(), teams.get(0));
 
         List<String> output = new ArrayList<>();
         output.add(FILENAME_JSON);
