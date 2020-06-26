@@ -20,12 +20,11 @@ import java.util.List;
 @ToString
 @Data
 public class Teams implements Entity {
-    @XmlElement
+    @XmlElement(name = "team")
     @JsonProperty("teams")
     @NonNull
     private List<Team> teams;
 
-//    @JsonCreator
     public Teams(@NonNull List<Team> teams) {
         this.teams = teams;
     }

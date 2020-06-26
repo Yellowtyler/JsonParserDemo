@@ -1,9 +1,12 @@
 package com.vtb.jsonparser.core.util;
 
 import com.vtb.jsonparser.core.entities.*;
+import com.vtb.jsonparser.core.exceptions.JsonParserDemoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,37 +22,39 @@ public class Converter {
         classes.add(Team.class);
     }
 
-    public static void convertXmlJson(List<String> input, List<String> output) {
+    public void convertXmlJson(List<String> input, List<String> output) {
         Object object = null;
+        JsonConverter jsonConverter = new JsonConverter();
+        XmlConverter xmlConverter = new XmlConverter();
         for(int i = 0; i < input.size(); i++) {
             logger.info("Конвертирование файла " + input.get(i) + " в " + output.get(i));
             for(Class cl : classes) {
                 try {
-                    object = XmlConverter.toJavaObject(input.get(i), cl);
-                    JsonConverter.toJSON(output.get(i), object);
+                    object = xmlConverter.deserialize(input.get(i), cl);
+                    jsonConverter.serialize(output.get(i), object);
                     break;
-                }
-                catch (Exception ignored) {
+                } catch (JAXBException exception) {
                     logger.warn("Ошибка конвертирования");
-                    logger.warn(ignored.getMessage());
+                    logger.warn(exception.getMessage());
                 }
             }
         }
     }
 
-    public static void convertJsonXml(List<String> input, List<String> output) {
+    public void convertJsonXml(List<String> input, List<String> output) {
         Object object = null;
+        JsonConverter jsonConverter = new JsonConverter();
+        XmlConverter xmlConverter = new XmlConverter();
         for(int i = 0; i < input.size(); i++) {
             logger.info("Конвертирование файла " + input.get(i) + " в " + output.get(i));
             for(Class cl : classes) {
                 try {
-                    object = JsonConverter.toJavaObject(input.get(i), cl);
-                    XmlConverter.toXML(output.get(i), object);
+                    object = jsonConverter.deserialize(input.get(i), cl);
+                    xmlConverter.serialize(output.get(i), object);
                     break;
-                }
-                catch (Exception ignored) {
+                } catch (IOException exception) {
                     logger.warn("Ошибка конвертирования");
-                    logger.warn(ignored.getMessage());
+                    logger.warn(exception.getMessage());
                 }
             }
         }

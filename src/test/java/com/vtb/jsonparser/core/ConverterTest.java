@@ -4,6 +4,7 @@ import com.vtb.jsonparser.core.entities.*;
 import com.vtb.jsonparser.core.util.Converter;
 import com.vtb.jsonparser.core.util.JsonConverter;
 import com.vtb.jsonparser.core.util.XmlConverter;
+import org.apache.logging.log4j.core.config.plugins.convert.TypeConverterRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,10 +23,15 @@ public class ConverterTest {
     String expectedResultJson = "{\"id\":1,\"name\":\"team1\",\"students\":[{\"id\":1,\"firstName\":\"Ivan\",\"secondName\":\"Ivanov\",\"phone\":\"+6225525\",\"email\":\"safsf@afas.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]},{\"id\":2,\"firstName\":\"Igor\",\"secondName\":\"Igorov\",\"phone\":\"+722245525\",\"email\":\"igor@mail.ru\",\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]}],\"tasks\":[{\"id\":1,\"name\":\"task 1\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfafafa\"},{\"id\":2,\"name\":\"task 2\",\"status\":\"done\",\"labels\":[{\"name\":\"Java programming\"},{\"name\":\"Version control\"}],\"description\":\"sfasfasfafs\"}]}";
     StringBuilder expectedResultXML = new StringBuilder();
     List<Team> teams = new ArrayList<>();
-
+    XmlConverter xmlConverter;
+    JsonConverter jsonConverter;
+    Converter converter;
 
     @BeforeEach
     public void init() {
+        xmlConverter = new XmlConverter();
+        jsonConverter = new JsonConverter();
+        converter = new Converter();
         List<Label> labelList = List.of(
                 new Label("Java programming"),
                 new Label("Version control"));
@@ -164,7 +170,7 @@ public class ConverterTest {
         File fileXml = new File(FILENAME_XML);
         fileXml.createNewFile();
 
-        XmlConverter.toXML(fileXml.getName(), teams.get(0));
+        xmlConverter.serialize(fileXml.getName(), teams.get(0));
 
         List<String> output = new ArrayList<>();
         output.add(FILENAME_JSON);
@@ -172,7 +178,7 @@ public class ConverterTest {
         List<String> input = new ArrayList<>();
         input.add(FILENAME_XML);
 
-        Converter.convertXmlJson(input, output);
+        converter.convertXmlJson(input, output);
 
         String result = Files.lines(Paths.get(FILENAME_JSON)).reduce("", String::concat);
         fileJson.delete();
@@ -188,7 +194,7 @@ public class ConverterTest {
         File fileXml = new File(FILENAME_XML);
         fileXml.createNewFile();
 
-        JsonConverter.toJSON(fileJson.getName(), teams);
+        jsonConverter.serialize(fileJson.getName(), teams);
 
         List<String> input = new ArrayList<>();
         input.add(FILENAME_JSON);
@@ -196,7 +202,7 @@ public class ConverterTest {
         List<String> output = new ArrayList<>();
         output.add(FILENAME_XML);
 
-        Converter.convertJsonXml(input, output);
+        converter.convertJsonXml(input, output);
 
         StringBuilder resultReader = new StringBuilder();
         FileInputStream fstream = new FileInputStream(FILENAME_XML);
