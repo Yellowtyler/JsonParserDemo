@@ -54,8 +54,8 @@ public class MainApp {
     }
 
     public static void main(String[] args) throws JAXBException, IOException {
-        XsdGenerator generateXsd = new XsdGenerator();
-        generateXsd.generateXsd();
+//        XsdGenerator generateXsd = new XsdGenerator();
+//        generateXsd.generateXsd();
 
         MainApp mainApp = new MainApp();
         int index = mainApp.findIndex(args);
