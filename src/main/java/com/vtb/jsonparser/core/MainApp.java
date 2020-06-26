@@ -19,6 +19,7 @@ public class MainApp {
     }
 
     public static void run(int index, String[] args) {
+        Converter converter = new Converter();
         List<String> input;
         List<String> output;
         String typeConvert = args[index];
@@ -28,12 +29,12 @@ public class MainApp {
         if (typeConvert.equalsIgnoreCase("xml-json")) {
             input = FileWorker.findFiles(typeConvert, directory, files);
             output = FileWorker.convertFiles("json", input);
-            Converter.convertXmlJson(input, output);
+            converter.convertXmlJson(input, output);
         }
         if (typeConvert.equalsIgnoreCase("json-xml")) {
             input = FileWorker.findFiles(typeConvert, directory, files);
             output = FileWorker.convertFiles("xml", input);
-            Converter.convertJsonXml(input, output);
+            converter.convertJsonXml(input, output);
         }
     }
 
