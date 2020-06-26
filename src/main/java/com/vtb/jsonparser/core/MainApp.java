@@ -1,5 +1,6 @@
 package com.vtb.jsonparser.core;
 
+import com.vtb.jsonparser.core.exceptions.NameFileException;
 import com.vtb.jsonparser.core.util.Converter;
 import com.vtb.jsonparser.core.util.FileWorker;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class MainApp {
 
-    public static int findIndex(String[] args) {
+    public int findIndex(String[] args) {
         for (int i = 0; i < args.length; i++) {
             if (args[i].equalsIgnoreCase("xml-json") ||
                     args[i].equalsIgnoreCase("json-xml"))
@@ -18,7 +19,7 @@ public class MainApp {
         return -1;
     }
 
-    public static void run(int index, String[] args) {
+    /*public static void run(int index, String[] args) {
         List<String> input;
         List<String> output;
         String typeConvert = args[index];
@@ -35,11 +36,28 @@ public class MainApp {
             output = FileWorker.convertFiles("xml", input);
             Converter.convertJsonXml(input, output);
         }
+    }*/
+
+    public void run(int index, String[] args) throws NameFileException {
+        String typeConvert = args[index];
+        String filename = args[index + 1];
+        FileWorker fileWorker = new FileWorker();
+        if (typeConvert.equalsIgnoreCase("xml-json")) {
+            fileWorker.convertFile("json", filename);
+        }
+        if (typeConvert.equalsIgnoreCase("json-xml")) {
+            fileWorker.convertFile("xml", filename);
+        }
     }
 
     public static void main(String[] args) throws JAXBException, IOException {
-        int index = findIndex(args);
-        if (index >= 0) run(index, args);
-        else System.out.println("Неверно введены параметры");
+        MainApp mainApp = new MainApp();
+        int index = mainApp.findIndex(args);
+        try {
+            if (index >= 0 && args.length > 2) mainApp.run(index, args);
+            else System.out.println("Неверно введены параметры");
+        } catch (NameFileException e) {
+            e.printStackTrace();
+        }
     }
 }
