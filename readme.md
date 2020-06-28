@@ -4,8 +4,10 @@
 + Maven
 
 ##### Параметры командной строки:
-{type} {file}
+{type} {file} [xsd_schema]
 
-{type} - тип конвертации: xml-json или json-xml;
+{type} - тип конвертации: xml-json, json-xml или xsd;
 
 {file} - полный путь к json или xml файлу
+
+[xsd_schema] - полный путь до xsd схемы, используется если тип конвертации xsd 
