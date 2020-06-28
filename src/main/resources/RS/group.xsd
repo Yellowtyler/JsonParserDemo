@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="group">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" type="xs:unsignedShort" />
+              <xs:element maxOccurs="unbounded" name="intern">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="id" type="xs:unsignedShort" />
+                    <xs:element name="firstName" type="xs:string" />
+                    <xs:element name="lastName" type="xs:string" />
+                    <xs:element name="age" type="xs:unsignedByte" />
+                    <xs:element name="gender" type="xs:string" />
+                    <xs:element name="compamy" type="xs:string" />
+                    <xs:element maxOccurs="unbounded" name="skill" type="xs:string" />
+                    <xs:element name="task">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="id" type="xs:unsignedByte" />
+                          <xs:element name="name" type="xs:string" />
+                          <xs:element name="description" type="xs:string" />
+                          <xs:element maxOccurs="unbounded" name="tag">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="id" type="xs:unsignedShort" />
+                                <xs:element name="name" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

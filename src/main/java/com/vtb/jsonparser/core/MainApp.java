@@ -1,9 +1,12 @@
 package com.vtb.jsonparser.core;
 
+import com.vtb.jsonparser.core.entities.Teams;
 import com.vtb.jsonparser.core.exceptions.NameFileException;
 import com.vtb.jsonparser.core.util.Converter;
 import com.vtb.jsonparser.core.util.FileWorker;
-import com.vtb.jsonparser.core.util.XsdGenerator;
+import com.vtb.jsonparser.core.util.XmlConverter;
+import generated.Root;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -13,7 +16,8 @@ public class MainApp {
     public int findIndex(String[] args) {
         for (int i = 0; i < args.length; i++) {
             if (args[i].equalsIgnoreCase("xml-json") ||
-                    args[i].equalsIgnoreCase("json-xml"))
+                    args[i].equalsIgnoreCase("json-xml") ||
+                    args[i].equalsIgnoreCase("xsd"))
                 return i;
         }
         return -1;
@@ -38,7 +42,7 @@ public class MainApp {
         }
     }*/
 
-    public void run(int index, String[] args) throws NameFileException {
+    public void run(int index, String[] args) throws NameFileException, JAXBException, SAXException {
         String typeConvert = args[index];
         String filename = args[index + 1];
         FileWorker fileWorker = new FileWorker();
@@ -50,6 +54,11 @@ public class MainApp {
         if (typeConvert.equalsIgnoreCase("json-xml")) {
             String output = fileWorker.convertFile("xml", filename);
             converter.convertJsonXml(filename, output);
+        }
+        if (typeConvert.equalsIgnoreCase("xsd")) {
+            String fileXsdName = args[index + 2];
+            XmlConverter xmlConverter = new XmlConverter();
+            xmlConverter.validateXsd(fileXsdName, filename, Teams.class);
         }
     }
 
@@ -63,6 +72,8 @@ public class MainApp {
             if (index >= 0 && args.length >= 2) mainApp.run(index, args);
         } catch (NameFileException e) {
             System.out.println("Неверно введены параметры");
+            e.printStackTrace();
+        } catch (SAXException e) {
             e.printStackTrace();
         }
     }
