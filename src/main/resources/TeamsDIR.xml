@@ -17,10 +17,10 @@
                         <status>DONE</status>
                         <labels>
                             <label>
-<name>Java programming</name>
+                                <name>Java programming</name>
                             </label>
                             <label>
-<name>Version control</name>
+                                <name>Version control</name>
                             </label>
                         </labels>
                         <description>description example1</description>
@@ -31,10 +31,10 @@
                         <status>OPEN</status>
                         <labels>
                             <label>
-<name>Java programming</name>
+                                <name>Java programming</name>
                             </label>
                             <label>
-<name>Version control</name>
+                                <name>Version control</name>
                             </label>
                         </labels>
                         <description>description example2</description>
@@ -54,10 +54,10 @@
                         <status>DONE</status>
                         <labels>
                             <label>
-<name>Java programming</name>
+                                <name>Java programming</name>
                             </label>
                             <label>
-<name>Version control</name>
+                                <name>Version control</name>
                             </label>
                         </labels>
                         <description>description example1</description>
@@ -68,10 +68,10 @@
                         <status>OPEN</status>
                         <labels>
                             <label>
-<name>Java programming</name>
+                                <name>Java programming</name>
                             </label>
                             <label>
-<name>Version control</name>
+                                <name>Version control</name>
                             </label>
                         </labels>
                         <description>description example2</description>

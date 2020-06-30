@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="task" type="task" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="team" type="team" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="student" type="student" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="task">
+		<xs:sequence>
+			<xs:element name="id" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="value">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minExclusive value="0"/>
+						<xs:maxExclusive value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="team">
+		<xs:sequence>
+			<xs:element name="tasksList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="task" type="task" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="name"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="student">
+		<xs:sequence>
+			<xs:element name="first_name" type="xs:string"/>
+			<xs:element name="second_name" type="xs:string"/>
+			<xs:element name="age" type="xs:integer"/>
+			<xs:element name="team" type="team"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

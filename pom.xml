@@ -48,7 +48,8 @@
                             <sourceRoot>src/main/java</sourceRoot>
                             <xsdOptions>
                                 <xsdOption>
-                                    <xsd>src/main/resources/TeamsDIR.xsd</xsd>
+                                    <xsd>src/main/resources/DAGteam/mainSchema.xsd</xsd>
+                                    <!--<xsd>src/main/resources/RS/group.xsd</xsd>-->
                                 </xsdOption>
                             </xsdOptions>
                         </configuration>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="mainSchema.xsd">
+		<task>
+			<id>RSC781</id>
+			<name>Bugfixing</name>
+			<value>6</value>
+		</task>
+		<task>
+			<id>RSA999</id>
+			<name>Creating</name>
+			<value>1</value>
+		</task>
+		<team>
+    <tasksList>
+        <task>
+            <id>IJK9288</id>
+            <name>Add New Feature</name>
+            <value>3</value>
+        </task>
+        <task>
+            <id>TYE9273</id>
+            <name>Bugfixing</name>
+            <value>4</value>
+        </task>
+    </tasksList>
+    <name>team1</name>
+</team>
+		<student>
+			<first_name>Vasya</first_name>
+			<second_name>Pupkin</second_name>
+			<age>19</age>
+			<team>
+				<tasksList>
+					<task>
+						<id>virtual</id>
+						<name>Virtualization</name>
+						<value>6</value>
+					</task>
+					<task>
+						<id>Js</id>
+						<name>Json Serialization</name>
+						<value>5</value>
+					</task>
+				</tasksList>
+			<name>team1</name>
+		</team>
+	</student>
+</root>
